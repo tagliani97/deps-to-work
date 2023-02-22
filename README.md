@@ -60,3 +60,5 @@ echo 'POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S}"' >> ~/.zshrc
 
 echo 'export SHELL=/usr/bin/zsh' >> ~/.bashrc 
 echo 'export SHELL=/usr/bin/zsh' >> ~/.zshrc
+sudo cp ~/.zshrc /etc/zsh/zshrc
+SHELL=/bin/zsh
