@@ -1,48 +1,54 @@
 #!/bin/bash
 
-# Instala dependências
 sudo apt update
 sudo apt install -y make build-essential libssl-dev zlib1g-dev \
 libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
 libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
 
-# Instala Visual Studio Code
-curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
-sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
-sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+# Instalação do Zsh
 sudo apt update
-sudo apt install -y code
+sudo apt install zsh
 
-# Instala Google Chrome
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo dpkg -i google-chrome-stable_current_amd64.deb
+# Configuração do Zsh como shell padrão
+chsh -s $(which zsh)
 
-# Instala Spotify
-sudo snap install spotify
+# Instalação do Oh-My-Zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-# Instala Zsh e Oh My Zsh
-sudo apt install -y zsh
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# Instalação do Powerlevel10k
+git clone https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
 
-# Instala Pyenv
+# Configuração do Powerlevel10k como tema padrão
+sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="powerlevel10k\/powerlevel10k"/g' ~/.zshrc
+
+# Instalação do Pyenv
 curl https://pyenv.run | bash
 
-# Configurações do Powerlevel10k
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
-echo 'ZSH_THEME="powerlevel10k/powerlevel10k"' >> ~/.zshrc
-echo 'source ~/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme' >> ~/.zshrc
-echo 'POWERLEVEL9K_MODE="nerdfont-complete"' >> ~/.zshrc
-echo 'POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)' >> ~/.zshrc
+# Configuração do Pyenv no Powerlevel10k
+echo 'POWERLEVEL9K_LEFT_PROMPT_ELEMENTS+=(virtualenv)' >> ~/.zshrc
 echo 'POWERLEVEL9K_PROMPT_ON_NEWLINE=true' >> ~/.zshrc
-echo 'POWERLEVEL9K_PROMPT_ADD_NEWLINE=true' >> ~/.zshrc
-echo 'POWERLEVEL9K_VCS_MODIFIED_BACKGROUND="red"' >> ~/.zshrc
-echo 'POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND="yellow"' >> ~/.zshrc
-echo 'POWERLEVEL9K_SHORTEN_DIR_LENGTH=2' >> ~/.zshrc
+echo 'POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="┌──"' >> ~/.zshrc
+echo 'POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="└──"' >> ~/.zshrc
+echo 'POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs time virtualenv pyenv)' >> ~/.zshrc
+echo 'POWERLEVEL9K_PYENV_FOREGROUND="white"' >> ~/.zshrc
+echo 'POWERLEVEL9K_PYENV_BACKGROUND="black"' >> ~/.zshrc
+echo 'POWERLEVEL9K_PYENV_VISUAL_IDENTIFIER_COLOR="black"' >> ~/.zshrc
+echo 'POWERLEVEL9K_PYENV_VISUAL_IDENTIFIER_COLOR="black"' >> ~/.zshrc
+echo 'POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S}"' >> ~/.zshrc
 
-# Adiciona Pyenv ao Zsh
-echo 'export PATH="$HOME/.pyenv/bin:$PATH"' >> ~/.zshrc
-echo 'eval "$(pyenv init -)"' >> ~/.zshrc
-echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.zshrc
+# Instalação do Visual Studio Code
+wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+sudo install -o root -g root -m 644 packages.microsoft.gpg /usr/share/keyrings/
+sudo sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+sudo apt-get update
+sudo apt-get install code
 
-# Define o zsh como shell padrão
-chsh -s $(which zsh)
+# Instalação do Google Chrome
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo dpkg -i google-chrome-stable_current_amd64.deb
+sudo apt-get install -f
+
+# Instalação do Spotify
+curl -sS https://download.spotify.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+sudo apt-get update && sudo apt-get install spotify-client
