@@ -57,3 +57,6 @@ echo 'POWERLEVEL9K_PYENV_BACKGROUND="black"' >> ~/.zshrc
 echo 'POWERLEVEL9K_PYENV_VISUAL_IDENTIFIER_COLOR="black"' >> ~/.zshrc
 echo 'POWERLEVEL9K_PYENV_VISUAL_IDENTIFIER="'"$(echo -e '\uE235')"'"' >> ~/.zshrc
 echo 'POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S}"' >> ~/.zshrc
+
+echo 'export SHELL=/usr/bin/zsh' >> ~/.bashrc 
+echo 'export SHELL=/usr/bin/zsh' >> ~/.zshrc
