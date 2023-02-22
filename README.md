@@ -30,17 +30,15 @@ sudo apt install zsh
 # Configuração do Zsh como shell padrão
 chsh -s $(which zsh)
 
-# Instalação do Oh-My-Zsh
+# Instalação do Oh-My-Zsh com Powerlevel10k theme
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+git clone https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
 
 # Atualização do arquivo /etc/passwd para tornar o Zsh o shell padrão
 sudo sed -i 's/\/bin\/bash/\/usr\/bin\/zsh/g' /etc/passwd
 
 # Altera o shell para Zsh
 exec zsh
-
-# Instalação do Powerlevel10k
-git clone https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
 
 # Configuração do Powerlevel10k como tema padrão
 sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="powerlevel10k\/powerlevel10k"/g' ~/.zshrc
@@ -57,5 +55,5 @@ echo 'POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs 
 echo 'POWERLEVEL9K_PYENV_FOREGROUND="white"' >> ~/.zshrc
 echo 'POWERLEVEL9K_PYENV_BACKGROUND="black"' >> ~/.zshrc
 echo 'POWERLEVEL9K_PYENV_VISUAL_IDENTIFIER_COLOR="black"' >> ~/.zshrc
-echo 'POWERLEVEL9K_PYENV_VISUAL_IDENTIFIER_COLOR="black"' >> ~/.zshrc
+echo 'POWERLEVEL9K_PYENV_VISUAL_IDENTIFIER="'"$(echo -e '\uE235')"'"' >> ~/.zshrc
 echo 'POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S}"' >> ~/.zshrc
