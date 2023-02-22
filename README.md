@@ -25,3 +25,24 @@ sudo dpkg -i google-chrome-stable_current_amd64.deb
 
 # Instala Spotify
 sudo snap install spotify
+
+# Instala Zsh e Oh My Zsh
+sudo apt install -y zsh
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# Instala Powerlevel10k
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
+echo 'ZSH_THEME="powerlevel10k/powerlevel10k"' >> ~/.zshrc
+
+# Configurações do Powerlevel10k
+echo 'source ~/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme' >> ~/.zshrc
+echo 'POWERLEVEL9K_MODE="nerdfont-complete"' >> ~/.zshrc
+echo 'POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)' >> ~/.zshrc
+echo 'POWERLEVEL9K_PROMPT_ON_NEWLINE=true' >> ~/.zshrc
+echo 'POWERLEVEL9K_PROMPT_ADD_NEWLINE=true' >> ~/.zshrc
+echo 'POWERLEVEL9K_VCS_MODIFIED_BACKGROUND="red"' >> ~/.zshrc
+echo 'POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND="yellow"' >> ~/.zshrc
+echo 'POWERLEVEL9K_SHORTEN_DIR_LENGTH=2' >> ~/.zshrc
+
+# Define o zsh como shell padrão
+chsh -s $(which zsh)
